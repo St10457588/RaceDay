@@ -1,0 +1,25 @@
+name: RaceDay CI/CD Build
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Verify Documentation
+      run: |
+        echo "Checking repository structure..."
+        test -d docs || exit 1
+        echo "Docs folder verified."
